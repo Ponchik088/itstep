@@ -3,6 +3,8 @@ import tkinter as tk
 level = 1
 coins = 0
 hp = 50
+attack = 1
+auto_attack = 0
 
 root = tk.Tk()
 root.title("CLICKER WARS")
@@ -23,8 +25,16 @@ def update():
 
 def death():
     global level
+    global hp
+    global coins
+    coins += 3 * level
     level+=1
-    monster_button.config(image=lvl_2)
+    if level == 2:
+        monster_button.config(image=lvl_2)
+    elif level == 3:
+        monster_button.config(image=lvl_3)
+    hp = 50 * level
+    update()
 
 def click():
     global hp
