@@ -12,11 +12,7 @@ root.geometry("600x800")
 #root.iconbitmap("like.ico")
 root.resizable(False, False)
 
-lvl_1 = tk.PhotoImage(file="1.png")
-lvl_2 = tk.PhotoImage(file="2.png")
-lvl_3 = tk.PhotoImage(file="1.png")
-lvl_4 = tk.PhotoImage(file="1.png")
-lvl_5 = tk.PhotoImage(file="1.png")
+M_images = [tk.PhotoImage(file="1.png"),tk.PhotoImage(file="2.png"),tk.PhotoImage(file="3.png"),tk.PhotoImage(file="4.png"),tk.PhotoImage(file="5.png")]
 
 def update():
     lvl_label.config(text=f"LVL: {level}")
@@ -29,10 +25,7 @@ def death():
     global coins
     coins += 3 * level
     level+=1
-    if level == 2:
-        monster_button.config(image=lvl_2)
-    elif level == 3:
-        monster_button.config(image=lvl_3)
+    monster_button.config(image=M_images[level - 1])
     hp = 50 * level
     update()
 
@@ -52,7 +45,7 @@ lvl_label.pack()
 coins_label = tk.Label(root, font = ("Arial", 14), text=f"COINS: {coins}", fg="gold",bg="black")
 coins_label.pack()
 
-monster_button = tk.Button(root, image=lvl_1, command=click)
+monster_button = tk.Button(root, image=M_images[level-1], command=click)
 monster_button.pack()
 
 hp_label = tk.Label(root, font = ("Arial", 14), text=f"HP: {hp}", fg="red")
