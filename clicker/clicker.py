@@ -1,4 +1,5 @@
 import tkinter as tk
+from threading import Timer
 
 level = 1
 coins = 0
@@ -43,6 +44,17 @@ def click():
         death()
     update()
 
+def auto_click():
+    global hp
+    global level
+    global auto_attack
+    hp-=auto_attack
+    print(hp)
+    if hp<=0:
+        death()
+    update()
+    Timer(1,auto_click).start()
+
 def attack_upgrade():
     global coins
     global attack
@@ -52,6 +64,17 @@ def attack_upgrade():
         attack += 1
         attack_cost *= 2
     update()
+
+def auto_attack_upgrade():
+    global coins
+    global auto_attack
+    global auto_attack_cost
+    if coins >= auto_attack_cost:
+        coins -= attack_cost
+        auto_attack += 1
+        auto_attack_cost *= 2
+    update()
+    auto_click()
 
 title = tk.Label(root, font = ("Arial", 20, "bold"), text="CLICKER WARS", fg="blue")
 title.pack()
@@ -69,7 +92,7 @@ hp_label.pack()
 click_attack_btn = tk.Button(root, font = ("Arial", 14, "bold"), text=f"Current Attack = {attack}\nUpgrade Cost = {attack_cost}", command=attack_upgrade)
 click_attack_btn.pack()
 
-auto_attack_btn = tk.Button(root, font = ("Arial", 14, "bold"), text=f"Current Attack = {auto_attack}\nUpgrade Cost = {auto_attack_cost}")
+auto_attack_btn = tk.Button(root, font = ("Arial", 14, "bold"), text=f"Current Attack = {auto_attack}\nUpgrade Cost = {auto_attack_cost}",  command=auto_attack_upgrade)
 auto_attack_btn.pack()
 
 root.mainloop()
