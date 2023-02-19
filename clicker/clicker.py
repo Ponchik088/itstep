@@ -4,7 +4,9 @@ level = 1
 coins = 0
 hp = 50
 attack = 1
+attack_cost = 10
 auto_attack = 0
+auto_attack_cost = 10
 
 root = tk.Tk()
 root.title("CLICKER WARS")
@@ -18,6 +20,8 @@ def update():
     lvl_label.config(text=f"LVL: {level}")
     hp_label.config(text=f"HP: {hp}")
     coins_label.config(text=f"COINS: {coins}")
+    click_attack_btn.config(text=f"Current Attack = {attack}\nUpgrade Cost = {attack_cost}")
+    auto_attack_btn.config(text=f"Current Attack = {auto_attack}\nUpgrade Cost = {auto_attack_cost}")
 
 def death():
     global level
@@ -32,10 +36,21 @@ def death():
 def click():
     global hp
     global level
-    hp-=1
+    global attack
+    hp-=attack
     print(hp)
     if hp<=0:
         death()
+    update()
+
+def attack_upgrade():
+    global coins
+    global attack
+    global attack_cost
+    if coins >= attack_cost:
+        coins -= attack_cost
+        attack += 1
+        attack_cost *= 2
     update()
 
 title = tk.Label(root, font = ("Arial", 20, "bold"), text="CLICKER WARS", fg="blue")
@@ -50,5 +65,11 @@ monster_button.pack()
 
 hp_label = tk.Label(root, font = ("Arial", 14), text=f"HP: {hp}", fg="red")
 hp_label.pack()
+
+click_attack_btn = tk.Button(root, font = ("Arial", 14, "bold"), text=f"Current Attack = {attack}\nUpgrade Cost = {attack_cost}", command=attack_upgrade)
+click_attack_btn.pack()
+
+auto_attack_btn = tk.Button(root, font = ("Arial", 14, "bold"), text=f"Current Attack = {auto_attack}\nUpgrade Cost = {auto_attack_cost}")
+auto_attack_btn.pack()
 
 root.mainloop()
