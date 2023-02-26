@@ -22,7 +22,7 @@ def update():
     hp_label.config(text=f"HP: {hp}")
     coins_label.config(text=f"COINS: {coins}")
     click_attack_btn.config(text=f"Current Attack = {attack}\nUpgrade Cost = {attack_cost}")
-    auto_attack_btn.config(text=f"Current Attack = {auto_attack}\nUpgrade Cost = {auto_attack_cost}")
+    auto_attack_btn.config(text=f"Current Auto Attack = {auto_attack}\nUpgrade Cost = {auto_attack_cost}")
 
 def death():
     global level
@@ -74,7 +74,6 @@ def auto_attack_upgrade():
         auto_attack += 1
         auto_attack_cost *= 2
     update()
-    auto_click()
 
 title = tk.Label(root, font = ("Arial", 20, "bold"), text="CLICKER WARS", fg="blue")
 title.pack()
@@ -92,7 +91,9 @@ hp_label.pack()
 click_attack_btn = tk.Button(root, font = ("Arial", 14, "bold"), text=f"Current Attack = {attack}\nUpgrade Cost = {attack_cost}", command=attack_upgrade)
 click_attack_btn.pack()
 
-auto_attack_btn = tk.Button(root, font = ("Arial", 14, "bold"), text=f"Current Attack = {auto_attack}\nUpgrade Cost = {auto_attack_cost}",  command=auto_attack_upgrade)
+auto_attack_btn = tk.Button(root, font = ("Arial", 14, "bold"), text=f"Current Auto Attack = {auto_attack}\nUpgrade Cost = {auto_attack_cost}",  command=auto_attack_upgrade)
 auto_attack_btn.pack()
+
+auto_click()
 
 root.mainloop()
